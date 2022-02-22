@@ -1,2 +1,2 @@
-# dev-server-setup
-Scripts for setting up common utils on a dev server
+# Dev Server Setup
+Use at your own risk.
