@@ -16,7 +16,7 @@ mkdir -p /usr/local/share/man/man5
 
 # apt packages
 sudo apt-get update --fix-missing
-sudo apt-get install --no-install-recommends git zsh fzf bat unzip
+sudo apt-get install -y --no-install-recommends git zsh fzf bat unzip
 
 # install exa
 # TODO check for UBUNTU (20.10+) and use apt
