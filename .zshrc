@@ -17,8 +17,8 @@ source $ZSH/oh-my-zsh.sh
 export DEFAULT_USER=s
 
 # fzf
-echo "source /usr/share/doc/fzf/examples/key-bindings.zsh" >> ~/.zshrc
-echo "source /usr/share/doc/fzf/examples/completion.zsh" >> ~/.zshrc
+source /usr/share/doc/fzf/examples/key-bindings.zsh
+source /usr/share/doc/fzf/examples/completion.zsh
 
 # zoxide
 eval "$(zoxide init zsh)"
