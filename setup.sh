@@ -2,6 +2,11 @@
 
 set -e
 
+if [ -z "$SUDO_USER" ]; then 
+    echo "Please run with sudo.";
+    exit 1
+fi
+
 export DEBIAN_FRONTEND=noninteractive
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
@@ -34,13 +39,14 @@ mv completions/exa.bash /usr/share/bash-completion/completions/exa
 mv completions/exa.fish /usr/share/fish/completions/exa.fish
 mv completions/exa.zsh /usr/share/zsh/vendor-completions/_exa
 
-# change shell to zsh
-sudo -u "$SUDO_USER" chsh -s $(which zsh)
-
 # intall oh-my-zsh
 curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh > zsh-install.sh
 sudo -u "$SUDO_USER" sh zsh-install.sh --unattended
 
 # install custom theme
-sudo -u "$SUDO_USER" wget https://raw.githubusercontent.com/slessans/oh-my-zsh-sl-agnoster/main/sl-agnoster.zsh-theme -O ~/.oh-my-zsh/themes/sl-agnoster.zsh-theme
-sudo -u "$SUDO_USER" cp "$SCRIPT_DIR/.zshrc" ~/.zshrc
+wget https://raw.githubusercontent.com/slessans/oh-my-zsh-sl-agnoster/main/sl-agnoster.zsh-theme -O "/home/$SUDO_USER/.oh-my-zsh/themes/sl-agnoster.zsh-theme"
+cp "$SCRIPT_DIR/.zshrc" "/home/$SUDO_USER/.zshrc"
+
+# change default shell
+sudo chsh -s $(which zsh) "$SUDO_USER"
+
