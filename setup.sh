@@ -13,6 +13,9 @@ cd ~/.sl-setup-temp
 # pre setup
 mkdir -p /usr/local/share/man/man1
 mkdir -p /usr/local/share/man/man5
+mkdir -p /usr/share/bash-completion/completions
+mkdir -p /usr/share/fish/completions
+mkdir -p /usr/share/zsh/vendor-completions
 
 # apt packages
 sudo apt-get update --fix-missing
@@ -34,7 +37,8 @@ mv completions/exa.zsh /usr/share/zsh/vendor-completions/_exa
 chsh -s $(which zsh)
 
 # intall oh-my-zsh
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh > zsh-install.sh
+sh zsh-install.sh --unattended
 
 # install custom theme
 wget https://raw.githubusercontent.com/slessans/oh-my-zsh-sl-agnoster/main/sl-agnoster.zsh-theme -O ~/.oh-my-zsh/themes/sl-agnoster.zsh-theme
