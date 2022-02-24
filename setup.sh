@@ -6,10 +6,6 @@ export DEBIAN_FRONTEND=noninteractive
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
-rm -rf ~/.sl-setup-temp
-mkdir -p ~/.sl-setup-temp
-cd ~/.sl-setup-temp
-
 # pre setup
 mkdir -p /usr/local/share/man/man1
 mkdir -p /usr/local/share/man/man5
@@ -18,8 +14,13 @@ mkdir -p /usr/share/fish/completions
 mkdir -p /usr/share/zsh/vendor-completions
 
 # apt packages
-sudo apt-get update --fix-missing
-sudo apt-get install -y --no-install-recommends git zsh fzf bat unzip
+apt-get update --fix-missing
+apt-get install -y --no-install-recommends git zsh fzf bat unzip
+
+# make tmp dir for artifacts
+rm -rf /tmp/.sl-setup-temp
+mkdir -p /tmp/.sl-setup-temp
+cd /tmp/.sl-setup-temp
 
 # install exa
 # TODO check for UBUNTU (20.10+) and use apt
@@ -34,12 +35,12 @@ mv completions/exa.fish /usr/share/fish/completions/exa.fish
 mv completions/exa.zsh /usr/share/zsh/vendor-completions/_exa
 
 # change shell to zsh
-chsh -s $(which zsh)
+sudo -u "$SUDO_USER" chsh -s $(which zsh)
 
 # intall oh-my-zsh
 curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh > zsh-install.sh
-sh zsh-install.sh --unattended
+sudo -u "$SUDO_USER" sh zsh-install.sh --unattended
 
 # install custom theme
-wget https://raw.githubusercontent.com/slessans/oh-my-zsh-sl-agnoster/main/sl-agnoster.zsh-theme -O ~/.oh-my-zsh/themes/sl-agnoster.zsh-theme
-cp "$SCRIPT_DIR/.zshrc" ~/.zshrc
+sudo -u "$SUDO_USER" wget https://raw.githubusercontent.com/slessans/oh-my-zsh-sl-agnoster/main/sl-agnoster.zsh-theme -O ~/.oh-my-zsh/themes/sl-agnoster.zsh-theme
+sudo -u "$SUDO_USER" cp "$SCRIPT_DIR/.zshrc" ~/.zshrc
