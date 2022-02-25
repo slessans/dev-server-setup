@@ -23,3 +23,13 @@ source /usr/share/doc/fzf/examples/completion.zsh
 # zoxide
 eval "$(zoxide init zsh)"
 
+# alias batcat to bat (on some ubuntu, bat is installed as batcat due to a naming conflict)
+if (! command -v bat &> /dev/null) && command -v batcat &> /dev/null
+then
+    alias bat="batcat"
+fi
+
+# my list aliases
+alias l="exa -lah"
+alias ll="exa -lh"
+alias cl="clear && l"
